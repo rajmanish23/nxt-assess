@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 import './index.css'
 
-import logo from '../../assets/login-page-logo.png'
+import logo from '../../assets/page-logo.png'
 
 const Login = props => {
   const [username, setUsername] = useState('')
@@ -37,6 +37,8 @@ const Login = props => {
   const onSubmitFailure = errMsg => {
     setErrorMessage(errMsg)
     setShowError(true)
+    setPassword('')
+    setUsername('')
     console.log(errMsg)
   }
 
