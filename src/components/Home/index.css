@@ -1,8 +1,112 @@
-.home-bg-container{}
-.home-image {}
-.home-instructions-card {}
-.home-instructions-heading {}
-.home-instructions-list-container {}
-.home-instructions-list-item {}
-.home-instructions-list-item-main-text {}
-.home-instructions-button {}
+.home-bg-container {
+  background-color: #fff;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .home-bg-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .home-image {
+    order: 1;
+    margin: 20px;
+  }
+
+  .home-instructions-card {
+    box-shadow: 0 0 16px 0 #7B879429;
+    padding: 40px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: clamp(300px, 40%, 631px);
+    font-size: 24px;
+    margin: 20px;
+  }
+
+  .home-instructions-heading {
+    font-size: 32px;
+  }
+
+  .home-instructions-list-container {
+    padding: 0 0 0 25px;
+    font-size: 24px;
+  }
+
+  .home-instructions-list-item {
+    margin: 20px 0 20px 0;
+  }
+
+  .home-instructions-button {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-bg-container {
+    flex-direction: column;
+  }
+
+  .home-image {
+    order: -1;
+  }
+
+  .home-instructions-card {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .home-instructions-heading {
+    font-size: 20px;
+  }
+
+  .home-instructions-list-container {
+    padding: 0 0 0 15px;
+    font-size: 14px;
+  }
+
+  .home-instructions-list-item {
+    margin: 10px 0 10px 0;
+  } 
+
+  .home-instructions-button {
+    font-size: 12px;
+  }
+}
+
+.home-image {
+  width: clamp(310px, 50%, 568px);
+}
+
+.home-instructions-card {
+  font-family: 'Roboto';
+}
+
+.home-instructions-heading {
+  margin: 0;
+  font-weight: 700;
+  color: #164687;
+}
+
+.home-instructions-list-container {
+  list-style: decimal;
+  color: #496387;
+  font-weight: 400;
+}
+
+.home-instructions-list-item-main-text {
+  font-weight: 500;
+}
+
+.home-instructions-button {
+  background-color: #164687;
+  color: #fff;
+  padding: 8px 16px 8px 16px;
+  border-radius: 4px;
+  border-style: none;
+  font-weight: 500;
+  font-family: 'Inter';
+}

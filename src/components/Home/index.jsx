@@ -20,25 +20,25 @@ const Home = props => {
           </span>
           : 10
         </li>
-        <li>
+        <li className="home-instructions-list-item">
           <span className="home-instructions-list-item-main-text">
             Types of Questions
           </span>
           : MCQs
         </li>
-        <li>
+        <li className="home-instructions-list-item">
           <span className="home-instructions-list-item-main-text">
             Duration
           </span>
           : 10 Mins
         </li>
-        <li>
+        <li className="home-instructions-list-item">
           <span className="home-instructions-list-item-main-text">
             Marking Scheme
           </span>
           : Every Correct response, get 1 mark
         </li>
-        <li>
+        <li className="home-instructions-list-item">
           All the progress will be lost, if you reload during the assessment
         </li>
       </ul>
