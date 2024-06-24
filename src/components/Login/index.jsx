@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 import './index.css'
 
-import logo from '../../assets/page-logo.png'
+import logo from '../../assets/login-page-logo.png'
 
 const Login = props => {
   const [username, setUsername] = useState('')
