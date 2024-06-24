@@ -113,10 +113,12 @@ const Login = props => {
         <img className="login-logo" src={logo} alt="logo" />
         <div className="login-input-container">{renderUsernameField()}</div>
         <div className="login-input-container">{renderPasswordField()}</div>
-        <button type="submit" className="login-button">
-          Login
-        </button>
-        {showError && <p className="login-error-message">{errorMessage}</p>}
+        <div className="login-button-error-container">
+          <button type="submit" className="login-button">
+            Login
+          </button>
+          {showError && <p className="login-error-message">{errorMessage}</p>}
+        </div>
       </form>
     </div>
   )
