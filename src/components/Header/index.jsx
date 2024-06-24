@@ -14,7 +14,9 @@ const Header = props => {
 
   return (
     <nav className="header-container">
-      <img src={logo} alt="website logo" className="header-logo-img" />
+      <Link to="/" className="header-home-link">
+        <img src={logo} alt="website logo" className="header-logo-img" />
+      </Link>
       <button
         type="button"
         onClick={onClickLogout}
