@@ -110,7 +110,7 @@ const Login = props => {
   return (
     <div className="login-bg-container">
       <form className="login-form-container" onSubmit={submitForm}>
-        <img className="login-logo" src={logo} alt="logo" />
+        <img className="login-logo" src={logo} alt="login website logo" />
         <div className="login-input-container">{renderUsernameField()}</div>
         <div className="login-input-container">{renderPasswordField()}</div>
         <div className="login-button-error-container">
