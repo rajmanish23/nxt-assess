@@ -1,27 +1,55 @@
-.login-bg-container {
-  background-color: #fafbfe;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+@media (min-width: 768px) {
+  .login-bg-container {
+    background-color: #fafbfe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-form-container {
+    background-color: #fff;
+    box-shadow: 0 0 16px 0 #7b879429;
+    padding: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 8px;
+    width: 456px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
-.login-form-container {
-  background-color: #fff;
-  box-shadow: 0 0 16px 0 #7b879429;
-  padding: 40px;
-  text-align: center;
-  border-radius: 8px;
+@media (max-width: 767px) {
+  .login-bg-container {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-form-container {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+  }
 }
 .login-logo {
   width: 98px;
   height: 56px;
+  align-self: center;
   margin: 0 20px 20px 20px;
 }
 .login-input-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 20px 0 20px 0;
+  margin: 15px 0 15px 0;
 }
 .login-input-label {
   margin-bottom: 5px;
@@ -36,7 +64,8 @@
   border-style: solid;
   border-color: #D7DFE9;
   border-radius: 2px;
-  width: 340px;
+  align-self: normal;
+  flex-grow: 100;
   font-family: 'Roboto';
   font-size: 14px;
   font-weight: 400;
@@ -48,7 +77,10 @@
   font-size: 14px;
 }
 .login-button-error-container {
-  margin: 40px 0 10px 0;
+  margin: 25px 0 10px 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 .login-error-message {
   font-family: 'Roboto';
@@ -59,7 +91,7 @@
   margin: 5px 0 0 0;
 }
 .login-button {
-  width: 360px;
+  flex-grow: 1;
   padding: 10px;
   background-color: #263868;
   border-radius: 8px;
