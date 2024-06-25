@@ -38,20 +38,20 @@ const Results = ({time = 0, score = 0, history}) => {
           {
             // Paragraph/text thing in the card
             time !== 0 ? (
-              <p className="results-score-para">
-                Time Taken:
-                <span className="results-final-time-display">{timeString}</span>
-              </p>
+              <div className="results-time-text-container">
+                <p className="results-score-para">Time Taken:</p>
+                <p className="results-final-time-display">{timeString}</p>
+              </div>
             ) : (
               <p className="results-time-para">
                 You did not complete the assessment within the time.
               </p>
             )
           }
-          <p className="results-final-score-text">
-            Your Score:
-            <span className="results-final-score-number">{score}</span>
-          </p>
+          <div className="results-score-text-container">
+            <p className="results-final-score-text">Your Score:</p>
+            <p className="results-final-score-number">{score}</p>
+          </div>
           <button
             className="results-restart-button"
             onClick={onClickOpenAssessment}

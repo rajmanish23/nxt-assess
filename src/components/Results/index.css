@@ -1,0 +1,147 @@
+.results-bg-container {
+  background-color: #FAFBFE;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.results-card-container {
+  text-align: center;
+  width: clamp(300px, 90%, 800px);
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 0 16px 0 #7B879429;
+  font-family: 'Roboto';
+  background-color: #fff;
+}
+
+.results-image {
+  width: clamp(200px, 90%, 500px);
+}
+
+.results-score-heading {
+  font-weight: 500;
+  color: #475569;
+}
+
+.results-time-heading {
+  font-weight: 700;
+  color: #475569;
+}
+
+.results-time-para {
+  font-weight: 400;
+  color: #64748B;
+}
+
+.results-time-text-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; 
+}
+
+.results-score-para {
+  color: #334155;
+  font-weight: 500;
+}
+
+.results-final-time-display {
+  color: #164687;
+  font-weight: 500;
+  margin: 10px;
+}
+
+.results-score-text-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-final-score-text {
+  font-weight: 500;
+  color: #164687;
+}
+
+.results-final-score-number {
+  margin: 10px;
+  font-weight: 700;
+  color: #044682;
+}
+
+/* mobile view */
+@media (max-width: 767px) {
+  .results-score-heading {
+    font-size: 16px;
+  }
+
+  .results-time-heading {
+    font-size: 18px;
+  }
+
+  .results-score-para {
+    font-size: 14px;
+  }
+
+  .results-final-time-display {
+    font-size: 16px;
+  }
+
+  .results-time-para {
+    font-size: 14px;
+  }
+
+  .results-final-score-text {
+    font-size: 20px;
+  }
+
+  .results-final-score-number {
+    font-size: 32px;
+  }
+}
+
+/* not mobile view */
+@media (min-width: 768px) {
+  .results-score-heading {
+    font-size: 24px;
+  }
+
+  .results-time-heading {
+    font-size: 36px;
+  }
+
+  .results-score-para {
+    font-size: 18px;
+  }
+
+  .results-final-time-display {
+    font-size: 24px;
+  }
+
+  .results-time-para {
+    font-size: 16px;
+  }
+
+  .results-final-score-text {
+    font-size: 24px;
+  }
+
+  .results-final-score-number {
+    font-size: 48px;
+  }
+}
+
+.results-restart-button {
+  padding: 10px 32px 10px 32px;
+  font-family: 'Hanken Grotesk';
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #164687;
+  border-style: none;
+  border-radius: 4px;
+  margin: 15px;
+}
