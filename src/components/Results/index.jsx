@@ -10,9 +10,11 @@ const Results = ({time = 0, score = 0, history}) => {
     history.push('/assessment')
   }
 
+  // selects image and alt based on timer
   const imageToUse = time === 0 ? notInTimeImage : inTimeImage
   const imageAltToUse = time === 0 ? 'time up' : 'submit'
 
+  // formats time (in seconds) into a string to display
   const date = new Date(0)
   date.setSeconds(time)
   const timeString = date.toISOString().substring(11, 19)
