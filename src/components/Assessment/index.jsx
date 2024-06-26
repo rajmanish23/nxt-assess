@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import Loader from 'react-loader-spinner'
 
 import Header from '../Header'
 import Error from './sub_components/Error'
@@ -91,10 +92,38 @@ const Assessment = () => {
     }
   }, [apiResponse.totalQuestions])
 
+  const renderLoader = () => (
+    <div className="loader-container" data-testid="loader">
+      <Loader type="ThreeDots" color="#263868" height={50} width={50} />
+    </div>
+  )
+
+  const renderMainView = () => (
+    <div className="assessment-bg-container">
+      <h1>Assessment Route</h1>
+    </div>
+  )
+
+  let viewToRender = null
+  switch (apiResponse.status) {
+    case apiStatusConsts.success:
+      viewToRender = renderMainView()
+      break
+    case apiStatusConsts.failure:
+      viewToRender = <Error />
+      break
+    case apiStatusConsts.loading:
+      viewToRender = renderLoader()
+      break
+    default:
+      viewToRender = null
+      break
+  }
+
   return (
     <div className="global-bg-container">
       <Header />
-      <h1>Assessment Route</h1>
+      {viewToRender}
     </div>
   )
 }
