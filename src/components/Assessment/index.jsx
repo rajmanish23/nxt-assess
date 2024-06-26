@@ -20,6 +20,7 @@ const Assessment = () => {
     errorMsg: null,
   })
   const [questionsProgressList, setQuestionsProgressList] = useState([])
+  const [currentQuestion, setCurrentQuestion] = useState(0)
 
   // fetching data from api
   useEffect(() => {
