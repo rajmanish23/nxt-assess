@@ -24,65 +24,66 @@ const Assessment = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
 
   // fetching data from api
-  useEffect(() => {
-    const getData = async () => {
-      setApiResponse({
-        status: apiStatusConsts.loading,
-        questionsList: null,
-        totalQuestions: null,
-        errorMsg: null,
-      })
-      const response = await fetch('https://apis.ccbp.in/assess/questions')
-      const data = await response.json()
-      if (response.ok) {
-        const questionsList = data.questions
-        const updatedData = questionsList.map(eachObj => {
-          const options = eachObj.options
-          const optionsType = eachObj.options_type
-
-          // changing name case of each options...
-          const updatedOptions = options.map(eachOptObj => {
-            const isCorrect = eachOptObj.is_correct === 'true'
-            if (optionsType === 'IMAGE') {
-              return {
-                id: eachOptObj.id,
-                text: eachOptObj.text,
-                imageUrl: eachOptObj.image_url,
-                isCorrect,
-              }
-            }
+  const getData = async () => {
+    setApiResponse({
+      status: apiStatusConsts.loading,
+      questionsList: null,
+      totalQuestions: null,
+      errorMsg: null,
+    })
+    const response = await fetch('https://apis.ccbp.in/assess/question')
+    const data = await response.json()
+    if (response.ok) {
+      const questionsList = data.questions
+      const updatedData = questionsList.map(eachObj => {
+        const options = eachObj.options
+        const optionsType = eachObj.options_type
+        // changing name case of each options...
+        const updatedOptions = options.map(eachOptObj => {
+          const isCorrect = eachOptObj.is_correct === 'true'
+          if (optionsType === 'IMAGE') {
             return {
               id: eachOptObj.id,
               text: eachOptObj.text,
+              imageUrl: eachOptObj.image_url,
               isCorrect,
             }
-          })
-
+          }
           return {
-            id: eachObj.id,
-            questionText: eachObj.question_text,
-            optionsType,
-            options: updatedOptions,
+            id: eachOptObj.id,
+            text: eachOptObj.text,
+            isCorrect,
           }
         })
-
-        setApiResponse({
-          status: apiStatusConsts.success,
-          questionsList: updatedData,
-          totalQuestions: data.total,
-          errorMsg: null,
-        })
-      } else {
-        setApiResponse({
-          status: apiStatusConsts.failure,
-          questionsList: null,
-          totalQuestions: null,
-          errorMsg: data.error_msg,
-        })
-      }
+        return {
+          id: eachObj.id,
+          questionText: eachObj.question_text,
+          optionsType,
+          options: updatedOptions,
+        }
+      })
+      setApiResponse({
+        status: apiStatusConsts.success,
+        questionsList: updatedData,
+        totalQuestions: data.total,
+        errorMsg: null,
+      })
+    } else {
+      setApiResponse({
+        status: apiStatusConsts.failure,
+        questionsList: null,
+        totalQuestions: null,
+        errorMsg: data.error_msg,
+      })
     }
+  }
+  useEffect(() => {
     getData()
   }, [])
+
+  const retryAPI = () => {
+    getData()
+  }
 
   // initialising questions progress list thing
   useEffect(() => {
@@ -98,11 +99,25 @@ const Assessment = () => {
     </div>
   )
 
-  const renderMainView = () => (
-    <div className="assessment-bg-container">
-      <h1>Assessment Route</h1>
-    </div>
-  )
+  const setNextQuestionIndex = () => {
+    if (currentQuestion >= apiResponse.totalQuestions - 1) {
+      return
+    }
+    setCurrentQuestion(prev => prev + 1)
+  }
+
+  const renderMainView = () => {
+    return (
+      <div className="assessment-bg-container">
+        <Question
+          questionData={apiResponse.questionsList[currentQuestion]}
+          nextQuestionFunction={setNextQuestionIndex}
+          currentQuestionIndex={currentQuestion}
+          totalQuestions={apiResponse.totalQuestions}
+        />
+      </div>
+    )
+  }
 
   let viewToRender = null
   switch (apiResponse.status) {
@@ -110,7 +125,7 @@ const Assessment = () => {
       viewToRender = renderMainView()
       break
     case apiStatusConsts.failure:
-      viewToRender = <Error />
+      viewToRender = <Error retryFunc={retryAPI} />
       break
     case apiStatusConsts.loading:
       viewToRender = renderLoader()
