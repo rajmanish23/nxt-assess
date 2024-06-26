@@ -10,13 +10,24 @@ const Question = props => {
     questionData,
     currentQuestionIndex,
     totalQuestions,
+    setScoreFunc,
+    setQuestionAttempt,
   } = props
+
+  const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
+  const [scoreToAdd, setScoreToAdd] = useState(0)
 
   const isNextQuestionAvailable = currentQuestionIndex < totalQuestions - 1
 
+  const onClickNext = () => {
+    setQuestionAttempt(activeOptionIndex !== -1)
+    nextQuestionFunction()
+    setScoreFunc(scoreToAdd)
+  }
+
   const renderNextQuestionButton = () => (
-    <button type="button" onClick={nextQuestionFunction}>
-      next question
+    <button type="button" onClick={onClickNext}>
+      Next Question
     </button>
   )
 
@@ -28,8 +39,15 @@ const Question = props => {
       case 'DEFAULT':
         optionsView = (
           <ul className="question-options-list-container">
-            {options.map(eachOption => (
-              <TextMultiSelect optionDetails={eachOption} />
+            {options.map((eachOption, index) => (
+              <TextMultiSelect
+                optionDetails={eachOption}
+                isSelected={activeOptionIndex === index}
+                optionIndex={index}
+                setActiveOptionId={setActiveOptionIndex}
+                setScoreFunc={setScoreToAdd}
+                key={eachOption.id}
+              />
             ))}
           </ul>
         )
@@ -37,14 +55,29 @@ const Question = props => {
       case 'IMAGE':
         optionsView = (
           <ul className="question-options-list-container">
-            {options.map(eachOption => (
-              <ImageMultiSelect optionDetails={eachOption} />
+            {options.map((eachOption, index) => (
+              <ImageMultiSelect
+                optionDetails={eachOption}
+                isSelected={activeOptionIndex === index}
+                optionIndex={index}
+                setActiveOptionId={setActiveOptionIndex}
+                setScoreFunc={setScoreToAdd}
+                key={eachOption.id}
+              />
             ))}
           </ul>
         )
         break
       case 'SINGLE_SELECT':
-        optionsView = <DropdownSingleSelect optionDetails={options} />
+        setActiveOptionIndex(0)
+        optionsView = (
+          <DropdownSingleSelect
+            optionDetails={options}
+            setScoreFunc={setScoreToAdd}
+            activeOptionIndex={activeOptionIndex}
+            setActiveOptionId={setActiveOptionIndex}
+          />
+        )
         break
       default:
         optionsView = null
