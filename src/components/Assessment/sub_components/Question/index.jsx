@@ -73,7 +73,7 @@ const Question = props => {
         optionsView = (
           <DropdownSingleSelect
             optionDetails={options}
-            setScoreFunc={setScoreToAdd}
+            setScoreFunction={setScoreToAdd}
             activeOptionIndex={activeOptionIndex}
             setActiveOptionId={setActiveOptionIndex}
           />

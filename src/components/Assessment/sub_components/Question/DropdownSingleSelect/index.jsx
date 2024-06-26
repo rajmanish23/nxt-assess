@@ -1,3 +1,10 @@
-const DropdownSingleSelect = props => <h1>dropdown select</h1>
+const DropdownSingleSelect = props => {
+  const {
+    optionDetails,
+    setScoreFunction,
+    activeOptionIndex,
+    setActiveOptionId,
+  } = props
+}
 
 export default DropdownSingleSelect
