@@ -1,0 +1,61 @@
+.error-bg-container {
+  background-color: #FAFBFE;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-image {
+  width: clamp(300px, 90%, 677px);
+  margin-bottom: 10px;
+}
+
+.error-heading {
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #475569;
+  margin: 10px;
+}
+
+.error-paragraph {
+  font-family: 'Roboto';
+  font-weight: 400;
+  color: #64748B;
+  margin: 10px;
+}
+
+.error-button {
+  font-family: 'Hanken Grotesk';
+  font-weight: 700;
+  color: #fff;
+  padding: 10px 32px 10px 32px;
+  font-size: 12px;
+  width: 93px;
+  height: 40px;
+  background-color: #164687;
+  border-style: none;
+  border-radius: 4px;
+  margin: 10px;
+}
+
+@media (min-width: 768px) {
+  .error-heading {
+    font-size: 36px;
+  }
+
+  .error-paragraph {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .error-heading {
+    font-size: 16px;
+  }
+
+  .error-paragraph {
+    font-size: 14px;
+  }
+}

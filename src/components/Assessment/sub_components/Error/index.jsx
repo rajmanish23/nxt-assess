@@ -1,5 +1,7 @@
 import errorImage from '../../../../assets/error-image.png'
 
+import './index.css'
+
 const Error = ({retryFunc}) => (
   <div className="error-bg-container">
     <img src={errorImage} alt="failure view" className="error-image" />
