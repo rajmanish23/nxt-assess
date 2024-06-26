@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import Error from './sub_components/Error'
 import Question from './sub_components/Question'
-import TimerProgress from './sub_components/TimerProgress'
+// import TimerProgress from './sub_components/TimerProgress'
 
 const apiStatusConsts = {
   initial: 0,
@@ -22,6 +22,7 @@ const Assessment = () => {
   })
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [score, setScore] = useState(0)
 
   // fetching data from api
   const getData = async () => {
@@ -106,6 +107,23 @@ const Assessment = () => {
     setCurrentQuestion(prev => prev + 1)
   }
 
+  const setCurrentQuestionAttempt = isAttempted => {
+    const updatedProgressList = questionsProgressList.map(
+      (eachQuestion, index) => {
+        if (index === currentQuestion) {
+          return isAttempted
+        } else {
+          return eachQuestion
+        }
+      },
+    )
+    setQuestionsProgressList(updatedProgressList)
+  }
+
+  const updateScore = scoreToAdd => {
+    setScore(prev => prev + scoreToAdd)
+  }
+
   const renderMainView = () => {
     return (
       <div className="assessment-bg-container">
@@ -114,6 +132,8 @@ const Assessment = () => {
           nextQuestionFunction={setNextQuestionIndex}
           currentQuestionIndex={currentQuestion}
           totalQuestions={apiResponse.totalQuestions}
+          setQuestionAttempt={setCurrentQuestionAttempt}
+          setScoreFunc={updateScore}
         />
       </div>
     )
