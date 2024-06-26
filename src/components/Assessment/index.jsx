@@ -31,7 +31,7 @@ const Assessment = () => {
       totalQuestions: null,
       errorMsg: null,
     })
-    const response = await fetch('https://apis.ccbp.in/assess/question')
+    const response = await fetch('https://apis.ccbp.in/assess/questions')
     const data = await response.json()
     if (response.ok) {
       const questionsList = data.questions
