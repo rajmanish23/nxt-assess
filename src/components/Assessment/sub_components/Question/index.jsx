@@ -23,6 +23,8 @@ const Question = props => {
     setQuestionAttempt(activeOptionIndex !== -1)
     nextQuestionFunction()
     setScoreFunc(scoreToAdd)
+    setActiveOptionIndex(-1)
+    setScoreToAdd(0)
   }
 
   const renderNextQuestionButton = () => (
@@ -69,12 +71,16 @@ const Question = props => {
         )
         break
       case 'SINGLE_SELECT':
-        setActiveOptionIndex(0)
+        // setActiveOptionIndex(0)
+        // ^^^ THIS ABOVE FUCKING LINE GAVE ME A HEART ATTACK, ANXIETY,
+        // STRESS, IMPOSTER SYNDROME AND EVERY OTHER MENTAL CONDITIONS
+        // YOU CAN IMAGINE WHEN YOU TRY TO DEBUG SOMETHING AND YOU CAN'T
+        // EVEN FIGURE OUT HOW THE ACTUAL FUCK THERE ARE INFINITE CALLS!!!
+
         optionsView = (
           <DropdownSingleSelect
-            optionDetails={options}
+            optionsList={options}
             setScoreFunction={setScoreToAdd}
-            activeOptionIndex={activeOptionIndex}
             setActiveOptionId={setActiveOptionIndex}
           />
         )
