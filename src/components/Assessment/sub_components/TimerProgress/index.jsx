@@ -40,20 +40,23 @@ const TimerProgress = props => {
 
     return (
       <div className="assess-progress-container">
-        <div className="assess-progress-details-container">
-          <div className="assess-progress-details-summary-container">
-            <div className="assess-progress-details-summary-text-container">
-              <p className="assess-answered-total-num">{numAttempted}</p>
-              <p className="assess-details-summary-label">Answered Questions</p>
+        <div className="assess-progress-details-summary-container">
+          <div className="assess-progress-details-summary-text-container">
+            <div className="assess-attempted-total-num">
+              <p className="assess-attempted-total-num-text">{numAttempted}</p>
             </div>
-            <div className="assess-progress-details-summary-text-container">
-              <p className="assess-unanswered-total-num">{numUnattempted}</p>
-              <p className="assess-details-summary-label">
-                Unanswered Questions
+            <p className="assess-details-summary-label">Answered Questions</p>
+          </div>
+          <div className="assess-progress-details-summary-text-container">
+            <div className="assess-unattempted-total-num">
+              <p className="assess-attempted-total-num-text">
+                {numUnattempted}
               </p>
             </div>
+            <p className="assess-details-summary-label">Unanswered Questions</p>
           </div>
-
+        </div>
+        <div className="assess-progress-details-container">
           <div className="assess-detailed-progress">
             <h1 className="assess-detailed-progress-heading">
               {`Questions (${totalQuestions})`}
@@ -71,8 +74,8 @@ const TimerProgress = props => {
               })}
             </ul>
           </div>
+          {renderSubmitButton()}
         </div>
-        {renderSubmitButton()}
       </div>
     )
   }
