@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {Switch, Route} from 'react-router-dom'
 
 import Login from './components/Login'
@@ -7,17 +8,39 @@ import Results from './components/Results'
 import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 
+import ScoreContext from './context/ScoreContext'
+
 import './App.css'
 
-function App() {
+const App = () => {
+  const [score, setScore] = useState(0)
+  const [timeRemaining, setTimeRemaining] = useState(0)
+
+  const setScoreContext = finalScore => {
+    setScore(finalScore)
+  }
+
+  const setTimeRemainingContext = finalTime => {
+    setTimeRemaining(finalTime)
+  }
+
   return (
-    <Switch>
-      <Route exact path="/login" component={Login} />
-      <ProtectedRoute exact path="/" component={Home} />
-      <ProtectedRoute exact path="/assessment" component={Assessment} />
-      <ProtectedRoute exact path="/results" component={Results} />
-      <Route component={NotFound} />
-    </Switch>
+    <ScoreContext.Provider
+      value={{
+        score,
+        setScoreContext,
+        timeRemaining,
+        setTimeRemainingContext,
+      }}
+    >
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute exact path="/assessment" component={Assessment} />
+        <ProtectedRoute exact path="/results" component={Results} />
+        <Route component={NotFound} />
+      </Switch>
+    </ScoreContext.Provider>
   )
 }
 
