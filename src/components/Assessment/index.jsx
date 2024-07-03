@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react'
+import {useState, useEffect, useContext, useRef} from 'react'
 import Loader from 'react-loader-spinner'
 
 import Header from '../Header'
@@ -25,9 +25,11 @@ const Assessment = ({history}) => {
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
-  const [time, setTime] = useState(600)
+  const [time, setTime] = useState(60)
 
   const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
+
+  let timerId = useRef(null)
 
   // fetching data from api
   const getData = async () => {
@@ -84,14 +86,18 @@ const Assessment = ({history}) => {
     }
   }
 
+  const endAssessment = () => {
+    updateContext()
+    history.replace('/results')
+  }
+
   useEffect(() => {
     getData()
-    const timerId = setInterval(() => {
+    timerId.current = setInterval(() => {
       setTime(prev => prev - 1)
     }, 1000)
     return () => {
-      clearInterval(timerId)
-      console.log('Cleared timer')
+      clearInterval(timerId.current)
     }
   }, [])
 
@@ -110,11 +116,6 @@ const Assessment = ({history}) => {
   const updateContext = () => {
     setScoreContext(score)
     setTimeRemainingContext(time)
-  }
-
-  const endAssessment = () => {
-    updateContext()
-    history.replace('/results')
   }
 
   const renderLoader = () => (
