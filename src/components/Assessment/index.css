@@ -2,7 +2,12 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
   background-color: #FAFBFE;
+  padding: 20px;
+}
+
+.loader-container {
+  align-self: center;
 }
