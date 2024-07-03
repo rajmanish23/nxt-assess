@@ -1,5 +1,7 @@
 import {useState} from 'react'
 
+import {MdError} from 'react-icons/md'
+
 import DropdownSingleSelect from './DropdownSingleSelect'
 import ImageMultiSelect from './ImageMultiSelect'
 import TextMultiSelect from './TextMultiSelect'
@@ -15,6 +17,7 @@ const Question = props => {
     setScoreFunc,
     setQuestionAttempt,
   } = props
+  const {questionText, optionsType, options} = questionData
 
   const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
   const [scoreToAdd, setScoreToAdd] = useState(0)
@@ -36,8 +39,6 @@ const Question = props => {
   )
 
   const renderQuestion = () => {
-    const {questionText, optionsType, options} = questionData
-
     let optionsView = null
     switch (optionsType) {
       case 'DEFAULT':
@@ -102,10 +103,22 @@ const Question = props => {
     )
   }
 
+  const renderDropdownInfoChip = () => (
+    <div className="question-dropdown-info">
+      <MdError className="question-dropdown-info-icon" />
+      <p className="question-dropdown-info-text">
+        First option is selected by default
+      </p>
+    </div>
+  )
+
   return (
     <div className="question-bg-container">
       {renderQuestion()}
-      {isNextQuestionAvailable && renderNextQuestionButton()}
+      <div className="question-bottom-container">
+        {optionsType === 'SINGLE_SELECT' && renderDropdownInfoChip()}
+        {isNextQuestionAvailable && renderNextQuestionButton()}
+      </div>
     </div>
   )
 }
