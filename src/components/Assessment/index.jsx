@@ -25,7 +25,7 @@ const Assessment = ({history}) => {
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
-  const [time, setTime] = useState(60)
+  const [time, setTime] = useState(600)
 
   const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
 
@@ -87,7 +87,8 @@ const Assessment = ({history}) => {
   }
 
   const endAssessment = () => {
-    updateContext()
+    setScoreContext(score)
+    setTimeRemainingContext(time)
     history.replace('/results')
   }
 
@@ -101,6 +102,13 @@ const Assessment = ({history}) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (time > 0) return
+    setScoreContext(score)
+    setTimeRemainingContext(time)
+    history.replace('/results')
+  }, [time, score, history, setScoreContext, setTimeRemainingContext])
+
   // initialising questions progress list thing
   useEffect(() => {
     const totalNum = apiResponse.totalQuestions
@@ -111,11 +119,6 @@ const Assessment = ({history}) => {
 
   const retryAPI = () => {
     getData()
-  }
-
-  const updateContext = () => {
-    setScoreContext(score)
-    setTimeRemainingContext(time)
   }
 
   const renderLoader = () => (
