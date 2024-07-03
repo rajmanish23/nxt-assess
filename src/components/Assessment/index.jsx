@@ -25,7 +25,7 @@ const Assessment = ({history}) => {
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
-  const [time, setTime] = useState(0)
+  const [time, setTime] = useState(600)
 
   const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
 
@@ -86,6 +86,13 @@ const Assessment = ({history}) => {
 
   useEffect(() => {
     getData()
+    const timerId = setInterval(() => {
+      setTime(prev => prev - 1)
+    }, 1000)
+    return () => {
+      clearInterval(timerId)
+      console.log('Cleared timer')
+    }
   }, [])
 
   // initialising questions progress list thing
@@ -150,11 +157,7 @@ const Assessment = ({history}) => {
         setQuestionAttempt={setCurrentQuestionAttempt}
         setScoreFunc={updateScore}
       />
-      <TimerProgress
-        endAssessment={endAssessment}
-        currentTime={time}
-        questionsProgressList={questionsProgressList}
-      />
+      <TimerProgress endAssessment={endAssessment} currentTime={time} />
     </div>
   )
 
