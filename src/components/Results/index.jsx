@@ -1,11 +1,19 @@
+import {useContext} from 'react'
+
 import Header from '../Header'
+
+import ScoreContext from '../../context/ScoreContext'
 
 import './index.css'
 
 import inTimeImage from '../../assets/results-in-time-image.png'
 import notInTimeImage from '../../assets/results-not-in-time-image.png'
 
-const Results = ({time = 0, score = 0, history}) => {
+const Results = ({history}) => {
+  const {contextScore, contextTimeRemaining} = useContext(ScoreContext)
+  const time = contextTimeRemaining
+  const score = contextScore
+
   const onClickOpenAssessment = () => {
     history.push('/assessment')
   }
