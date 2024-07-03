@@ -154,7 +154,7 @@ const Assessment = ({history}) => {
   }
 
   const renderMainView = () => (
-    <div className="assessment-bg-container">
+    <>
       <Question
         questionData={apiResponse.questionsList[currentQuestion]}
         nextQuestionFunction={setNextQuestionIndex}
@@ -168,7 +168,7 @@ const Assessment = ({history}) => {
         currentTime={time}
         questionsProgressList={questionsProgressList}
       />
-    </div>
+    </>
   )
 
   let viewToRender = null
@@ -190,7 +190,7 @@ const Assessment = ({history}) => {
   return (
     <div className="global-bg-container">
       <Header />
-      {viewToRender}
+      <div className="assessment-bg-container">{viewToRender}</div>
     </div>
   )
 }
