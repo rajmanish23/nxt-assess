@@ -27,9 +27,9 @@ const App = () => {
   return (
     <ScoreContext.Provider
       value={{
-        score,
+        contextScore: score,
         setScoreContext,
-        timeRemaining,
+        contextTimeRemaining: timeRemaining,
         setTimeRemainingContext,
       }}
     >

@@ -1,9 +1,9 @@
 import React from 'react'
 
 const ScoreContext = React.createContext({
-  score: 0,
+  contextScore: 0,
   setScoreContext: () => {},
-  timeRemaining: 0,
+  contextTimeRemaining: 0,
   setTimeRemainingContext: () => {},
 })
 
