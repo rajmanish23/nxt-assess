@@ -4,6 +4,8 @@ import DropdownSingleSelect from './DropdownSingleSelect'
 import ImageMultiSelect from './ImageMultiSelect'
 import TextMultiSelect from './TextMultiSelect'
 
+import './index.css'
+
 const Question = props => {
   const {
     nextQuestionFunction,

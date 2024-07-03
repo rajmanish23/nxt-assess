@@ -1,5 +1,7 @@
 import {useState} from 'react'
 
+import './index.css'
+
 const DropdownSingleSelect = props => {
   const {optionsList, setScoreFunction, setActiveOptionId} = props
 

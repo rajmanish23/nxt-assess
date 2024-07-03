@@ -1,3 +1,5 @@
+import './index.css'
+
 const TimerProgress = props => {
   const {endAssessment, currentTime, questionsProgressList} = props
 

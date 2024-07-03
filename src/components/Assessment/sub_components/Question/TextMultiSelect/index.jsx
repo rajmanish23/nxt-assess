@@ -1,3 +1,5 @@
+import './index.css'
+
 const TextMultiSelect = props => {
   const {
     optionDetails,

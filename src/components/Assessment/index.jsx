@@ -8,6 +8,8 @@ import TimerProgress from './sub_components/TimerProgress'
 
 import ScoreContext from '../../context/ScoreContext'
 
+import './index.css'
+
 const apiStatusConsts = {
   initial: 0,
   loading: 1,
@@ -25,7 +27,7 @@ const Assessment = ({history}) => {
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
-  const [time, setTime] = useState(600)
+  const [time, setTime] = useState(999999999999)
 
   const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
 
