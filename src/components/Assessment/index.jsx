@@ -161,7 +161,11 @@ const Assessment = ({history}) => {
         setQuestionAttempt={setCurrentQuestionAttempt}
         setScoreFunc={updateScore}
       />
-      <TimerProgress endAssessment={endAssessment} currentTime={time} />
+      <TimerProgress
+        endAssessment={endAssessment}
+        currentTime={time}
+        questionsProgressList={questionsProgressList}
+      />
     </div>
   )
 
