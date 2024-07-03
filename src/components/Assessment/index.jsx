@@ -1,10 +1,12 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import Loader from 'react-loader-spinner'
 
 import Header from '../Header'
 import Error from './sub_components/Error'
 import Question from './sub_components/Question'
-// import TimerProgress from './sub_components/TimerProgress'
+import TimerProgress from './sub_components/TimerProgress'
+
+import ScoreContext from '../../context/ScoreContext'
 
 const apiStatusConsts = {
   initial: 0,
@@ -13,7 +15,7 @@ const apiStatusConsts = {
   failure: 3,
 }
 
-const Assessment = () => {
+const Assessment = ({history}) => {
   const [apiResponse, setApiResponse] = useState({
     status: apiStatusConsts.initial,
     questionsList: null,
@@ -23,6 +25,9 @@ const Assessment = () => {
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
+  const [time, setTime] = useState(0)
+
+  const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
 
   // fetching data from api
   const getData = async () => {
@@ -83,10 +88,6 @@ const Assessment = () => {
     getData()
   }, [])
 
-  const retryAPI = () => {
-    getData()
-  }
-
   // initialising questions progress list thing
   useEffect(() => {
     const totalNum = apiResponse.totalQuestions
@@ -94,6 +95,20 @@ const Assessment = () => {
       setQuestionsProgressList(prev => [...prev, false])
     }
   }, [apiResponse.totalQuestions])
+
+  const retryAPI = () => {
+    getData()
+  }
+
+  const updateContext = () => {
+    setScoreContext(score)
+    setTimeRemainingContext(time)
+  }
+
+  const endAssessment = () => {
+    updateContext()
+    history.replace('/results')
+  }
 
   const renderLoader = () => (
     <div className="loader-container" data-testid="loader">
@@ -125,20 +140,23 @@ const Assessment = () => {
     setScore(prev => prev + scoreToAdd)
   }
 
-  const renderMainView = () => {
-    return (
-      <div className="assessment-bg-container">
-        <Question
-          questionData={apiResponse.questionsList[currentQuestion]}
-          nextQuestionFunction={setNextQuestionIndex}
-          currentQuestionIndex={currentQuestion}
-          totalQuestions={apiResponse.totalQuestions}
-          setQuestionAttempt={setCurrentQuestionAttempt}
-          setScoreFunc={updateScore}
-        />
-      </div>
-    )
-  }
+  const renderMainView = () => (
+    <div className="assessment-bg-container">
+      <Question
+        questionData={apiResponse.questionsList[currentQuestion]}
+        nextQuestionFunction={setNextQuestionIndex}
+        currentQuestionIndex={currentQuestion}
+        totalQuestions={apiResponse.totalQuestions}
+        setQuestionAttempt={setCurrentQuestionAttempt}
+        setScoreFunc={updateScore}
+      />
+      <TimerProgress
+        endAssessment={endAssessment}
+        currentTime={time}
+        questionsProgressList={questionsProgressList}
+      />
+    </div>
+  )
 
   let viewToRender = null
   switch (apiResponse.status) {
