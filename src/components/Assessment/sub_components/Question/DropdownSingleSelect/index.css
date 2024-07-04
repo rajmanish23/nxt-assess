@@ -1,0 +1,14 @@
+.question-dropdown-container {
+  padding: 5px;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+  width: 25%;
+  border-radius: 4px;
+}
+
+.question-dropdown-option-item {
+  font-size: 16px;
+  color: #0967D2;
+}
