@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 import Header from '../Header'
 
 import './index.css'
@@ -13,7 +15,7 @@ const Home = props => {
   const renderInstructionsCard = () => (
     <div className="home-instructions-card">
       <h1 className="home-instructions-heading">Instructions</h1>
-      <ul className="home-instructions-list-container">
+      <ol className="home-instructions-list-container">
         <li className="home-instructions-list-item">
           <span className="home-instructions-list-item-main-text">
             Total Questions
@@ -41,14 +43,12 @@ const Home = props => {
         <li className="home-instructions-list-item">
           All the progress will be lost, if you reload during the assessment
         </li>
-      </ul>
-      <button
-        type="button"
-        className="home-instructions-button"
-        onClick={onCLickOpenAssessment}
-      >
-        Start Assessment
-      </button>
+      </ol>
+      <Link to="/assessment" className="assess-button-link">
+        <button type="button" className="home-instructions-button">
+          Start Assessment
+        </button>
+      </Link>
     </div>
   )
 

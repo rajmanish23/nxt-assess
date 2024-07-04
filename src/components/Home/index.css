@@ -6,6 +6,10 @@
   padding-top: 20px;
 }
 
+.assess-button-link {
+  outline: none;
+}
+
 @media (min-width: 768px) {
   .home-bg-container {
     flex-direction: row;
