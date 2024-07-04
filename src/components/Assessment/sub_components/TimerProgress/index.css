@@ -1,7 +1,9 @@
 .assess-time-progress-container {
   width: 33%;
   box-sizing: border-box;
-  height: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .assess-time-bar {
@@ -45,11 +47,12 @@
 }
 
 .assess-progress-container {
-  margin-top: 5px;
   background-color: #fff;
-  height: 100%;
   box-shadow: 0 0 15px 0 #DAE4FA80;
   border-radius: 4px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .assess-progress-details-summary-container {
@@ -152,7 +155,7 @@
 }
 
 .assess-progress-details-container {
-  height: 85%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
