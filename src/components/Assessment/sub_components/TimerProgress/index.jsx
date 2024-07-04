@@ -37,7 +37,7 @@ const TimerProgress = props => {
     let numAttempted = 0
     let numUnattempted = 0
     questionsProgressList.forEach(value => {
-      if (value) {
+      if (value.status) {
         numAttempted += 1
       } else {
         numUnattempted += 1
