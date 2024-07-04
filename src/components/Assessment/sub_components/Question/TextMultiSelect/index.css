@@ -15,3 +15,9 @@
   background-color: #5B6F94;
   color: #F8FAFC;
 }
+
+@media (max-width: 767px) {
+  .question-text-option-button {
+    font-size: 16px;
+  }
+}

@@ -6,15 +6,26 @@
   height: 100%;
   background-color: #FAFBFE;
   padding: 20px;
-}
-
-.assessment-content-bg-container {
-  display: grid;
-  grid-template-columns: auto auto clamp(320px, calc(100%/3), 420px);
-  height: 100%;
-  width: 100%;
+  overflow: auto;
 }
 
 .loader-container {
   align-self: center;
+}
+
+@media (min-width: 768px) {
+  .assessment-content-bg-container {
+    display: grid;
+    grid-template-columns: auto auto clamp(320px, calc(100%/3), 420px);
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .assessment-content-bg-container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
 }

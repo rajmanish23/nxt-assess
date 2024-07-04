@@ -159,3 +159,14 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+@media (max-width: 767px) {
+  .assess-progress-details-summary-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .assess-time-progress-container {
+    margin-bottom: 20px;
+  }
+}

@@ -12,3 +12,9 @@
   font-size: 16px;
   color: #0967D2;
 }
+
+@media (max-width: 767px) {
+  .question-dropdown-container {
+    width: 100%;
+  }
+}

@@ -74,4 +74,43 @@
 .question-dropdown-info-text {
   margin: 0;
   padding: 0;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .question-bg-container {
+    margin: 0;
+    padding: 20px;
+  }
+
+  .question-options-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 15px 0;
+  }
+
+  .question-main-text {
+    font-size: 16px;
+  }
+
+  .question-bottom-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+  }
+
+  .question-dropdown-info-text {
+    font-size: 14px;
+  }
+
+  .question-dropdown-info {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 15px 10px 15px;
+  }
+
+  .next-question-button {
+    margin-top: 20px;
+  }
 }
