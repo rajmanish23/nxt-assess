@@ -27,7 +27,7 @@ const Assessment = ({history}) => {
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
-  const [time, setTime] = useState(999999999999)
+  const [time, setTime] = useState(600)
 
   const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
 
