@@ -7,8 +7,15 @@ const DropdownSingleSelect = props => {
 
   const initialValue = optionsList[0].id
   const [selectedOption, setSelectedOption] = useState(initialValue)
+  const correctOptionId = optionsList.find(ele => ele.isCorrect).id
 
-  useEffect(() => setQuestionAttempt(true), [setQuestionAttempt])
+  useEffect(() => {
+    setQuestionAttempt(true)
+    if (correctOptionId === selectedOption) {
+      setScoreFunction(1)
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const checkAnswerAndAddScore = isCorrect => {
     if (isCorrect) {
@@ -19,7 +26,9 @@ const DropdownSingleSelect = props => {
   }
 
   const onChangeUpdateSelectedOption = e => {
-    setSelectedOption(e.target.value)
+    const optionId = e.target.value
+    setSelectedOption(optionId)
+    checkAnswerAndAddScore(optionId === correctOptionId)
   }
 
   return (
@@ -29,17 +38,9 @@ const DropdownSingleSelect = props => {
       onChange={onChangeUpdateSelectedOption}
     >
       {optionsList.map(eachOption => {
-        const {id, text, isCorrect} = eachOption
-        const onClickCkeckAnswer = () => {
-          checkAnswerAndAddScore(isCorrect)
-        }
+        const {id, text} = eachOption
         return (
-          <option
-            key={id}
-            value={id}
-            className="question-dropdown-option-item"
-            onClick={onClickCkeckAnswer}
-          >
+          <option key={id} value={id} className="question-dropdown-option-item">
             {text}
           </option>
         )
