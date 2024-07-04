@@ -3,11 +3,10 @@ import {useState} from 'react'
 import './index.css'
 
 const DropdownSingleSelect = props => {
-  const {optionsList, setScoreFunction, setActiveOptionId} = props
+  const {optionsList, setScoreFunction} = props
 
   const initialValue = optionsList[0].text
   const [selectedOption, setSelectedOption] = useState(initialValue)
-  setActiveOptionId(0)
 
   const checkAnswerAndAddScore = isCorrect => {
     if (isCorrect) {
@@ -27,7 +26,7 @@ const DropdownSingleSelect = props => {
       value={selectedOption}
       onChange={onChangeUpdateSelectedOption}
     >
-      {optionsList.map((eachOption, index) => {
+      {optionsList.map(eachOption => {
         const {id, text, isCorrect} = eachOption
         const onClickCkeckAnswer = () => {
           checkAnswerAndAddScore(isCorrect)

@@ -4,7 +4,7 @@
   font-size: 20px;
   font-weight: 400;
   color: #334155;
-  background-color: #EBF3FF;
+  background-color: #ebf3ff;
   border-style: none;
   border-radius: 8px;
   width: 100%;
@@ -12,8 +12,8 @@
 }
 
 .active-option-highlight {
-  background-color: #5B6F94;
-  color: #F8FAFC;
+  background-color: #5b6f94;
+  color: #f8fafc;
 }
 
 @media (max-width: 767px) {

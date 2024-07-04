@@ -16,16 +16,21 @@ const Question = props => {
     totalQuestions,
     setScoreFunc,
     setQuestionAttempt,
+    activeOptionIndex,
+    setActiveOptionIndex,
   } = props
   const {questionText, optionsType, options} = questionData
 
-  const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
   const [scoreToAdd, setScoreToAdd] = useState(0)
 
   const isNextQuestionAvailable = currentQuestionIndex < totalQuestions - 1
 
   const onClickNext = () => {
-    setQuestionAttempt(activeOptionIndex !== -1)
+    if (optionsType === 'SINGLE_SELECT') {
+      setQuestionAttempt(true)
+    } else {
+      setQuestionAttempt(activeOptionIndex !== -1)
+    }
     nextQuestionFunction()
     setScoreFunc(scoreToAdd)
     setActiveOptionIndex(-1)
@@ -88,7 +93,6 @@ const Question = props => {
           <DropdownSingleSelect
             optionsList={options}
             setScoreFunction={setScoreToAdd}
-            setActiveOptionId={setActiveOptionIndex}
           />
         )
         break

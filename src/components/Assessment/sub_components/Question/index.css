@@ -4,7 +4,7 @@
   box-sizing: border-box;
   height: 100%;
   margin-right: 20px;
-  box-shadow: 0 0 15px 0 #DAE4FA80;
+  box-shadow: 0 0 15px 0 #dae4fa80;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   font-size: 20px;
   font-weight: 500;
   color: #164687;
-  border-bottom: 1px solid #9797973F;
+  border-bottom: 1px solid #9797973f;
   padding-bottom: 20px;
 }
 
@@ -58,8 +58,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #D97706;
-  background-color: #FEF3C7;
+  color: #d97706;
+  background-color: #fef3c7;
   border-radius: 12px;
   justify-self: center;
   padding: 15px 20px 15px 20px;

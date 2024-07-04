@@ -6,6 +6,8 @@ const TimerProgress = props => {
     currentTime,
     questionsProgressList,
     currentQuestionIndex,
+    setCurrentQuestion,
+    setActiveOptionIndex,
   } = props
 
   const renderTimeBar = () => {
@@ -36,9 +38,9 @@ const TimerProgress = props => {
     let numUnattempted = 0
     questionsProgressList.forEach(value => {
       if (value) {
-        numAttempted++
+        numAttempted += 1
       } else {
-        numUnattempted++
+        numUnattempted += 1
       }
     })
     const totalQuestions = questionsProgressList.length
@@ -67,18 +69,27 @@ const TimerProgress = props => {
               {`Questions (${totalQuestions})`}
             </h1>
             <ul className="assess-detailed-progress-list-container">
-              {questionsProgressList.map((isAnswered, index) => {
+              {questionsProgressList.map((eachAttempt, index) => {
+                const {status, id} = eachAttempt
+                const isAnswered = status
                 const highlightClass = isAnswered ? 'assess-attempted' : ''
                 let activeHighlightClass = ''
                 if (currentQuestionIndex === index) {
                   activeHighlightClass = 'assess-current'
                 }
+                const onClickSetActiveQuestion = () => {
+                  setCurrentQuestion(index)
+                  setActiveOptionIndex(-1)
+                }
                 return (
-                  <li
-                    className={`assess-detailed-progress-list-item ${highlightClass} ${activeHighlightClass}`}
-                    key={index}
-                  >
-                    <p className="assess-detailed-progress-text">{index + 1}</p>
+                  <li key={id}>
+                    <button
+                      className={`assess-detailed-progress-list-item ${highlightClass} ${activeHighlightClass}`}
+                      type="button"
+                      onClick={onClickSetActiveQuestion}
+                    >
+                      {index + 1}
+                    </button>
                   </li>
                 )
               })}

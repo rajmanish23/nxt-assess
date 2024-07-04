@@ -1,4 +1,5 @@
 import {useState, useEffect, useContext, useRef} from 'react'
+import {v4 as uuidv4} from 'uuid'
 import Loader from 'react-loader-spinner'
 
 import Header from '../Header'
@@ -28,10 +29,11 @@ const Assessment = ({history}) => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
   const [time, setTime] = useState(600)
+  const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
 
   const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
 
-  let timerId = useRef(null)
+  const timerId = useRef(null)
 
   // fetching data from api
   const getData = async () => {
@@ -46,7 +48,7 @@ const Assessment = ({history}) => {
     if (response.ok) {
       const questionsList = data.questions
       const updatedData = questionsList.map(eachObj => {
-        const options = eachObj.options
+        const {options} = eachObj
         const optionsType = eachObj.options_type
         // changing name case of each options...
         const updatedOptions = options.map(eachOptObj => {
@@ -114,8 +116,10 @@ const Assessment = ({history}) => {
   // initialising questions progress list thing
   useEffect(() => {
     const totalNum = apiResponse.totalQuestions
-    for (let i = 0; i < totalNum; i++) {
-      setQuestionsProgressList(prev => [...prev, false])
+    let i = 0
+    while (i < totalNum) {
+      setQuestionsProgressList(prev => [...prev, {id: uuidv4(), status: false}])
+      i += 1
     }
   }, [apiResponse.totalQuestions])
 
@@ -140,10 +144,9 @@ const Assessment = ({history}) => {
     const updatedProgressList = questionsProgressList.map(
       (eachQuestion, index) => {
         if (index === currentQuestion) {
-          return isAttempted
-        } else {
-          return eachQuestion
+          return {...eachQuestion, status: isAttempted}
         }
+        return eachQuestion
       },
     )
     setQuestionsProgressList(updatedProgressList)
@@ -162,12 +165,16 @@ const Assessment = ({history}) => {
         totalQuestions={apiResponse.totalQuestions}
         setQuestionAttempt={setCurrentQuestionAttempt}
         setScoreFunc={updateScore}
+        activeOptionIndex={activeOptionIndex}
+        setActiveOptionIndex={setActiveOptionIndex}
       />
       <TimerProgress
         endAssessment={endAssessment}
         currentTime={time}
         questionsProgressList={questionsProgressList}
         currentQuestionIndex={currentQuestion}
+        setCurrentQuestion={setCurrentQuestion}
+        setActiveOptionIndex={setActiveOptionIndex}
       />
     </div>
   )
