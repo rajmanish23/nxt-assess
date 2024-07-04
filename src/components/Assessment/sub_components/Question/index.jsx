@@ -93,6 +93,7 @@ const Question = props => {
           <DropdownSingleSelect
             optionsList={options}
             setScoreFunction={setScoreToAdd}
+            setQuestionAttempt={setQuestionAttempt}
           />
         )
         break

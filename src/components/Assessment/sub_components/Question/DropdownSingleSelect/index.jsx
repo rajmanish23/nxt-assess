@@ -1,12 +1,14 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import './index.css'
 
 const DropdownSingleSelect = props => {
-  const {optionsList, setScoreFunction} = props
+  const {optionsList, setScoreFunction, setQuestionAttempt} = props
 
-  const initialValue = optionsList[0].text
+  const initialValue = optionsList[0].id
   const [selectedOption, setSelectedOption] = useState(initialValue)
+
+  useEffect(() => setQuestionAttempt(true), [setQuestionAttempt])
 
   const checkAnswerAndAddScore = isCorrect => {
     if (isCorrect) {
@@ -34,7 +36,7 @@ const DropdownSingleSelect = props => {
         return (
           <option
             key={id}
-            value={text}
+            value={id}
             className="question-dropdown-option-item"
             onClick={onClickCkeckAnswer}
           >
