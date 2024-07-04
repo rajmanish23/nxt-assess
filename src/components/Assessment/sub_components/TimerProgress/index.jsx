@@ -76,6 +76,7 @@ const TimerProgress = props => {
                 return (
                   <li
                     className={`assess-detailed-progress-list-item ${highlightClass} ${activeHighlightClass}`}
+                    key={index}
                   >
                     <p className="assess-detailed-progress-text">{index + 1}</p>
                   </li>
