@@ -28,6 +28,8 @@
   margin: 20px 0 0 0;
   display: grid;
   grid-template-columns: auto auto;
+  column-gap: 40px;
+  row-gap: 25px;
 }
 
 .question-bottom-container {
