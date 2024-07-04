@@ -33,7 +33,11 @@ const Question = props => {
   }
 
   const renderNextQuestionButton = () => (
-    <button type="button" onClick={onClickNext}>
+    <button
+      type="button"
+      onClick={onClickNext}
+      className="next-question-button"
+    >
       Next Question
     </button>
   )
