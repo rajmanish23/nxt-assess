@@ -8,6 +8,13 @@
   padding: 20px;
 }
 
+.assessment-content-bg-container {
+  display: grid;
+  grid-template-columns: auto auto clamp(320px, calc(100%/3), 420px);
+  height: 100%;
+  width: 100%;
+}
+
 .loader-container {
   align-self: center;
 }

@@ -1,5 +1,5 @@
 .question-bg-container {
-  flex-grow: 1;
+  grid-column: 1 / span 2;
   background-color: #fff;
   box-sizing: border-box;
   height: 100%;
