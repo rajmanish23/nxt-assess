@@ -167,6 +167,7 @@ const Assessment = ({history}) => {
         endAssessment={endAssessment}
         currentTime={time}
         questionsProgressList={questionsProgressList}
+        currentQuestionIndex={currentQuestion}
       />
     </>
   )

@@ -1,7 +1,12 @@
 import './index.css'
 
 const TimerProgress = props => {
-  const {endAssessment, currentTime, questionsProgressList} = props
+  const {
+    endAssessment,
+    currentTime,
+    questionsProgressList,
+    currentQuestionIndex,
+  } = props
 
   const renderTimeBar = () => {
     // formats time (in seconds) into a string to display
@@ -63,10 +68,14 @@ const TimerProgress = props => {
             </h1>
             <ul className="assess-detailed-progress-list-container">
               {questionsProgressList.map((isAnswered, index) => {
-                const attemptedClass = isAnswered ? 'assess-attempted' : ''
+                const highlightClass = isAnswered ? 'assess-attempted' : ''
+                let activeHighlightClass = ''
+                if (currentQuestionIndex === index) {
+                  activeHighlightClass = 'assess-current'
+                }
                 return (
                   <li
-                    className={`assess-detailed-progress-list-item ${attemptedClass}`}
+                    className={`assess-detailed-progress-list-item ${highlightClass} ${activeHighlightClass}`}
                   >
                     <p className="assess-detailed-progress-text">{index + 1}</p>
                   </li>
