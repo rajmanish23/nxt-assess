@@ -7,11 +7,6 @@ import './index.css'
 import image from '../../assets/home-image.png'
 
 const Home = props => {
-  const onCLickOpenAssessment = () => {
-    const {history} = props
-    history.replace('/assessment')
-  }
-
   const renderInstructionsCard = () => (
     <div className="home-instructions-card">
       <h1 className="home-instructions-heading">Instructions</h1>
