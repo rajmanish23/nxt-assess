@@ -38,7 +38,7 @@ const Results = ({history}) => {
                 Congrats! You completed the assessment.
               </h1>
             ) : (
-              <h1 className="results-time-heading">Time is up</h1>
+              <h1 className="results-time-heading">Time is up!</h1>
             )
           }
           {
