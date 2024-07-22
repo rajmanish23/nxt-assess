@@ -10,21 +10,19 @@ import inTimeImage from '../../assets/results-in-time-image.png'
 import notInTimeImage from '../../assets/results-not-in-time-image.png'
 
 const Results = ({history}) => {
-  const {contextScore, contextTimeRemaining} = useContext(ScoreContext)
-  const time = contextTimeRemaining
-  const score = contextScore
+  const {score, timeRemaining} = useContext(ScoreContext)
 
   const onClickOpenAssessment = () => {
     history.push('/assessment')
   }
 
   // selects image and alt based on timer
-  const imageToUse = time === 0 ? notInTimeImage : inTimeImage
-  const imageAltToUse = time === 0 ? 'time up' : 'submit'
+  const imageToUse = timeRemaining === 0 ? notInTimeImage : inTimeImage
+  const imageAltToUse = timeRemaining === 0 ? 'time up' : 'submit'
 
   // formats time (in seconds) into a string to display
   const date = new Date(0)
-  date.setSeconds(time)
+  date.setSeconds(timeRemaining)
   const timeString = date.toISOString().substring(11, 19)
 
   return (
@@ -35,7 +33,7 @@ const Results = ({history}) => {
           <img className="results-image" src={imageToUse} alt={imageAltToUse} />
           {
             // Heading in card
-            time !== 0 ? (
+            timeRemaining !== 0 ? (
               <h1 className="results-score-heading">
                 Congrats! You completed the assessment.
               </h1>
@@ -45,7 +43,7 @@ const Results = ({history}) => {
           }
           {
             // Paragraph/text thing in the card
-            time !== 0 ? (
+            timeRemaining !== 0 ? (
               <div className="results-time-text-container">
                 <p className="results-score-para">Time Taken:</p>
                 <p className="results-final-time-display">{timeString}</p>

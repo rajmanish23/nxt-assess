@@ -14,7 +14,7 @@ import './App.css'
 
 const App = () => {
   const [score, setScore] = useState(0)
-  const [timeRemaining, setTimeRemaining] = useState(0)
+  const [timeRemaining, setTimeRemaining] = useState(600000)
 
   const setScoreContext = finalScore => {
     setScore(finalScore)
@@ -27,10 +27,10 @@ const App = () => {
   return (
     <ScoreContext.Provider
       value={{
-        contextScore: score,
-        setScoreContext,
-        contextTimeRemaining: timeRemaining,
-        setTimeRemainingContext,
+        score,
+        setScore: setScoreContext,
+        timeRemaining,
+        setTimeRemaining: setTimeRemainingContext,
       }}
     >
       <Switch>

@@ -1,5 +1,3 @@
-import {useState} from 'react'
-
 import {MdError} from 'react-icons/md'
 
 import DropdownSingleSelect from './DropdownSingleSelect'
@@ -21,8 +19,6 @@ const Question = props => {
   } = props
   const {questionText, optionsType, options} = questionData
 
-  const [scoreToAdd, setScoreToAdd] = useState(0)
-
   const isNextQuestionAvailable = currentQuestionIndex < totalQuestions - 1
 
   const onClickNext = () => {
@@ -32,9 +28,7 @@ const Question = props => {
       setQuestionAttempt(activeOptionIndex !== -1)
     }
     nextQuestionFunction()
-    setScoreFunc(scoreToAdd)
     setActiveOptionIndex(-1)
-    setScoreToAdd(0)
   }
 
   const renderNextQuestionButton = () => (
@@ -59,7 +53,7 @@ const Question = props => {
                 isSelected={activeOptionIndex === index}
                 optionIndex={index}
                 setActiveOptionId={setActiveOptionIndex}
-                setScoreFunc={setScoreToAdd}
+                setScoreFunc={setScoreFunc}
                 key={eachOption.id}
               />
             ))}
@@ -75,7 +69,7 @@ const Question = props => {
                 isSelected={activeOptionIndex === index}
                 optionIndex={index}
                 setActiveOptionId={setActiveOptionIndex}
-                setScoreFunc={setScoreToAdd}
+                setScoreFunc={setScoreFunc}
                 key={eachOption.id}
               />
             ))}
@@ -92,7 +86,7 @@ const Question = props => {
         optionsView = (
           <DropdownSingleSelect
             optionsList={options}
-            setScoreFunction={setScoreToAdd}
+            setScoreFunction={setScoreFunc}
             setQuestionAttempt={setQuestionAttempt}
           />
         )

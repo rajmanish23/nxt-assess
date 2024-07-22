@@ -15,9 +15,9 @@ const TextMultiSelect = props => {
 
   const checkCorrectAndSetScore = () => {
     if (isCorrect) {
-      setScoreFunc(1)
+      setScoreFunc(1, optionIndex)
     } else {
-      setScoreFunc(0)
+      setScoreFunc(0, optionIndex)
     }
   }
 

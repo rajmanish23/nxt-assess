@@ -27,11 +27,11 @@ const Assessment = ({history}) => {
   })
   const [questionsProgressList, setQuestionsProgressList] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [score, setScore] = useState(0)
-  const [time, setTime] = useState(600)
+  const [previousScoreAddtion, setPreviousScoreAddition] = useState(0)
   const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
 
-  const {setScoreContext, setTimeRemainingContext} = useContext(ScoreContext)
+  const {score, timeRemaining, setScore, setTimeRemaining} =
+    useContext(ScoreContext)
 
   const timerId = useRef(null)
 
@@ -91,27 +91,25 @@ const Assessment = ({history}) => {
   }
 
   const endAssessment = () => {
-    setScoreContext(score)
-    setTimeRemainingContext(time)
     history.replace('/results')
   }
 
   useEffect(() => {
     getData()
     timerId.current = setInterval(() => {
-      setTime(prev => prev - 1)
+      setTimeRemaining(timeRemaining - 1)
     }, 1000)
     return () => {
       clearInterval(timerId.current)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // checks whether timer has reached 0 or not.
   useEffect(() => {
-    if (time > 0) return
-    setScoreContext(score)
-    setTimeRemainingContext(time)
+    if (timeRemaining > 0) return
     history.replace('/results')
-  }, [time, score, history, setScoreContext, setTimeRemainingContext])
+  }, [timeRemaining, history])
 
   // initialising questions progress list thing
   useEffect(() => {
@@ -138,6 +136,7 @@ const Assessment = ({history}) => {
       return
     }
     setCurrentQuestion(prev => prev + 1)
+    setPreviousScoreAddition(0)
   }
 
   const setCurrentQuestionAttempt = isAttempted => {
@@ -152,8 +151,13 @@ const Assessment = ({history}) => {
     setQuestionsProgressList(updatedProgressList)
   }
 
-  const updateScore = scoreToAdd => {
-    setScore(prev => prev + scoreToAdd)
+  const updateScore = (newScoreAddition, optionId) => {
+    if (optionId === activeOptionIndex) return
+    // currentScore = currentScore - previousAddition
+    // currentScore = currentScore + newAddition
+    const updatedScore = score - previousScoreAddtion + newScoreAddition
+    setScore(updatedScore)
+    setPreviousScoreAddition(newScoreAddition)
   }
 
   const renderMainView = () => (
@@ -170,7 +174,7 @@ const Assessment = ({history}) => {
       />
       <TimerProgress
         endAssessment={endAssessment}
-        currentTime={time}
+        currentTime={timeRemaining}
         questionsProgressList={questionsProgressList}
         currentQuestionIndex={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}

@@ -1,10 +1,10 @@
 import React from 'react'
 
 const ScoreContext = React.createContext({
-  contextScore: 0,
-  setScoreContext: () => {},
-  contextTimeRemaining: 0,
-  setTimeRemainingContext: () => {},
+  score: 0,
+  setScore: () => {},
+  timeRemaining: 0,
+  setTimeRemaining: () => {},
 })
 
 export default ScoreContext
