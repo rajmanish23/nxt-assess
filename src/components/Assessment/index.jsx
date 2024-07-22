@@ -29,9 +29,9 @@ const Assessment = ({history}) => {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [previousScoreAddtion, setPreviousScoreAddition] = useState(0)
   const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
+  const [currentTime, setCurrentTime] = useState(600)
 
-  const {score, timeRemaining, setScore, setTimeRemaining} =
-    useContext(ScoreContext)
+  const {score, setScore, setTimeRemaining} = useContext(ScoreContext)
 
   const timerId = useRef(null)
 
@@ -91,13 +91,14 @@ const Assessment = ({history}) => {
   }
 
   const endAssessment = () => {
+    setTimeRemaining(currentTime)
     history.replace('/results')
   }
 
   useEffect(() => {
     getData()
     timerId.current = setInterval(() => {
-      setTimeRemaining(timeRemaining - 1)
+      setCurrentTime(prev => prev - 1)
     }, 1000)
     return () => {
       clearInterval(timerId.current)
@@ -107,9 +108,9 @@ const Assessment = ({history}) => {
 
   // checks whether timer has reached 0 or not.
   useEffect(() => {
-    if (timeRemaining > 0) return
+    if (currentTime > 0) return
     history.replace('/results')
-  }, [timeRemaining, history])
+  }, [currentTime, history])
 
   // initialising questions progress list thing
   useEffect(() => {
@@ -151,13 +152,14 @@ const Assessment = ({history}) => {
     setQuestionsProgressList(updatedProgressList)
   }
 
-  const updateScore = (newScoreAddition, optionId) => {
+  const updateScore = (newScoreAddition, optionId, isAttempted) => {
     if (optionId === activeOptionIndex) return
     // currentScore = currentScore - previousAddition
     // currentScore = currentScore + newAddition
     const updatedScore = score - previousScoreAddtion + newScoreAddition
     setScore(updatedScore)
     setPreviousScoreAddition(newScoreAddition)
+    setCurrentQuestionAttempt(isAttempted)
   }
 
   const renderMainView = () => (
@@ -167,14 +169,13 @@ const Assessment = ({history}) => {
         nextQuestionFunction={setNextQuestionIndex}
         currentQuestionIndex={currentQuestion}
         totalQuestions={apiResponse.totalQuestions}
-        setQuestionAttempt={setCurrentQuestionAttempt}
         setScoreFunc={updateScore}
         activeOptionIndex={activeOptionIndex}
         setActiveOptionIndex={setActiveOptionIndex}
       />
       <TimerProgress
         endAssessment={endAssessment}
-        currentTime={timeRemaining}
+        currentTime={currentTime}
         questionsProgressList={questionsProgressList}
         currentQuestionIndex={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}

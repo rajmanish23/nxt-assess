@@ -14,13 +14,14 @@ import './App.css'
 
 const App = () => {
   const [score, setScore] = useState(0)
-  const [timeRemaining, setTimeRemaining] = useState(600000)
+  const [timeRemaining, setTimeRemaining] = useState(0)
 
   const setScoreContext = finalScore => {
     setScore(finalScore)
   }
 
   const setTimeRemainingContext = finalTime => {
+    console.log(finalTime)
     setTimeRemaining(finalTime)
   }
 

@@ -3,25 +3,26 @@ import {useState, useEffect} from 'react'
 import './index.css'
 
 const DropdownSingleSelect = props => {
-  const {optionsList, setScoreFunction, setQuestionAttempt} = props
+  const {optionsList, setScoreFunction} = props
 
   const initialValue = optionsList[0].id
   const [selectedOption, setSelectedOption] = useState(initialValue)
   const correctOptionId = optionsList.find(ele => ele.isCorrect).id
 
   useEffect(() => {
-    setQuestionAttempt(true)
     if (correctOptionId === selectedOption) {
-      setScoreFunction(1)
+      setScoreFunction(1, selectedOption, true)
+    } else {
+      setScoreFunction(0, selectedOption, true)
     }
     // eslint-disable-next-line
   }, [])
 
   const checkAnswerAndAddScore = isCorrect => {
     if (isCorrect) {
-      setScoreFunction(1)
+      setScoreFunction(1, selectedOption, true)
     } else {
-      setScoreFunction(0)
+      setScoreFunction(0, selectedOption, true)
     }
   }
 

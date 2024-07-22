@@ -15,9 +15,9 @@ const ImageMultiSelect = props => {
 
   const checkCorrectAndSetScore = () => {
     if (isCorrect) {
-      setScoreFunc(1)
+      setScoreFunc(1, optionIndex, true)
     } else {
-      setScoreFunc(0)
+      setScoreFunc(0, optionIndex, true)
     }
   }
 
