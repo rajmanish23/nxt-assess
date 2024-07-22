@@ -21,7 +21,6 @@ const App = () => {
   }
 
   const setTimeRemainingContext = finalTime => {
-    console.log(finalTime)
     setTimeRemaining(finalTime)
   }
 
