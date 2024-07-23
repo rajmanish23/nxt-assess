@@ -22,7 +22,9 @@ const Results = ({history}) => {
 
   // formats time (in seconds) into a string to display
   const date = new Date(0)
-  date.setSeconds(timeRemaining)
+  date.setSeconds(600 - timeRemaining)
+  // Yeah that 600 thing took me like an entire day and having to extract the
+  // tester oputput and printing it via python for that bs!
   const timeString = date.toISOString().substring(11, 19)
 
   return (
