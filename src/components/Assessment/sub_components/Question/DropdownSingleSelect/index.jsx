@@ -3,11 +3,15 @@ import {useState, useEffect} from 'react'
 import './index.css'
 
 const DropdownSingleSelect = props => {
-  const {optionsList, setScoreFunction} = props
-
-  const initialValue = optionsList[0].id
-  const [selectedOption, setSelectedOption] = useState(initialValue)
-  const correctOptionId = optionsList.find(ele => ele.isCorrect).id
+  const {
+    optionsList,
+    setScoreFunction,
+    setActiveOptionIndex,
+    activeOptionIndex,
+  } = props
+  const initialOption = activeOptionIndex === -1 ? 0 : activeOptionIndex
+  const [selectedOption, setSelectedOption] = useState(initialOption)
+  const correctOptionId = optionsList.map(ele => ele.isCorrect).indexOf(true)
 
   useEffect(() => {
     if (correctOptionId === selectedOption) {
@@ -15,8 +19,11 @@ const DropdownSingleSelect = props => {
     } else {
       setScoreFunction(0, selectedOption, true)
     }
-    // eslint-disable-next-line
-  }, [])
+    if (activeOptionIndex === -1) {
+      setActiveOptionIndex(0)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeOptionIndex])
 
   const checkAnswerAndAddScore = isCorrect => {
     if (isCorrect) {
@@ -27,8 +34,9 @@ const DropdownSingleSelect = props => {
   }
 
   const onChangeUpdateSelectedOption = e => {
-    const optionId = e.target.value
+    const optionId = Number(e.target.value)
     setSelectedOption(optionId)
+    setActiveOptionIndex(optionId)
     checkAnswerAndAddScore(optionId === correctOptionId)
   }
 
@@ -38,10 +46,14 @@ const DropdownSingleSelect = props => {
       value={selectedOption}
       onChange={onChangeUpdateSelectedOption}
     >
-      {optionsList.map(eachOption => {
+      {optionsList.map((eachOption, index) => {
         const {id, text} = eachOption
         return (
-          <option key={id} value={id} className="question-dropdown-option-item">
+          <option
+            key={id}
+            value={index}
+            className="question-dropdown-option-item"
+          >
             {text}
           </option>
         )

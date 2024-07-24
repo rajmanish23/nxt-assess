@@ -75,11 +75,16 @@ const Question = props => {
         // STRESS, IMPOSTER SYNDROME AND EVERY OTHER MENTAL CONDITIONS
         // YOU CAN IMAGINE WHEN YOU TRY TO DEBUG SOMETHING AND YOU CAN'T
         // EVEN FIGURE OUT HOW THE ACTUAL FUCK THERE ARE INFINITE CALLS!!!
+        //
+        // Friendly reminder to never call any state functions directly.
+        // EVEN if they are from a different component.
 
         optionsView = (
           <DropdownSingleSelect
             optionsList={options}
             setScoreFunction={setScoreFunc}
+            setActiveOptionIndex={setActiveOptionIndex}
+            activeOptionIndex={activeOptionIndex}
           />
         )
         break
