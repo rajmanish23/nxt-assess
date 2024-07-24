@@ -22,7 +22,6 @@ const Question = props => {
 
   const onClickNext = () => {
     nextQuestionFunction()
-    setActiveOptionIndex(-1)
   }
 
   const renderNextQuestionButton = () => (

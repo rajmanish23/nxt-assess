@@ -7,7 +7,6 @@ const TimerProgress = props => {
     questionsProgressList,
     currentQuestionIndex,
     setCurrentQuestion,
-    setActiveOptionIndex,
   } = props
 
   const renderTimeBar = () => {
@@ -79,7 +78,6 @@ const TimerProgress = props => {
                 }
                 const onClickSetActiveQuestion = () => {
                   setCurrentQuestion(index)
-                  setActiveOptionIndex(-1)
                 }
                 return (
                   <li key={id}>

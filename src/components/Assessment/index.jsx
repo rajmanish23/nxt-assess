@@ -26,9 +26,10 @@ const Assessment = ({history}) => {
     errorMsg: null,
   })
   const [questionsProgressList, setQuestionsProgressList] = useState([])
+  const [questionSelectedOptions, setQuestionSelectedOptions] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [previousScoreAddtion, setPreviousScoreAddition] = useState(0)
-  const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
+  // const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
   const [currentTime, setCurrentTime] = useState(600)
 
   const {score, setScore, setTimeRemaining} = useContext(ScoreContext)
@@ -106,6 +107,13 @@ const Assessment = ({history}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // initialising question options storage thing
+  useEffect(() => {
+    for (let i = 0; i < apiResponse.totalQuestions; i++) {
+      setQuestionSelectedOptions(prev => [...prev, -1])
+    }
+  }, [apiResponse.totalQuestions])
+
   // checks whether timer has reached 0 or not.
   useEffect(() => {
     if (currentTime > 0) return
@@ -125,12 +133,6 @@ const Assessment = ({history}) => {
   const retryAPI = () => {
     getData()
   }
-
-  const renderLoader = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#263868" height={50} width={50} />
-    </div>
-  )
 
   const setNextQuestionIndex = () => {
     if (currentQuestion >= apiResponse.totalQuestions - 1) {
@@ -152,8 +154,18 @@ const Assessment = ({history}) => {
     setQuestionsProgressList(updatedProgressList)
   }
 
+  const setActiveOptionIndex = optionIndex => {
+    const updatedOptionsStorage = questionSelectedOptions.map((e, index) => {
+      if (index === currentQuestion) {
+        return optionIndex
+      }
+      return e
+    })
+    setQuestionSelectedOptions(updatedOptionsStorage)
+  }
+
   const updateScore = (newScoreAddition, optionId, isAttempted) => {
-    if (optionId === activeOptionIndex) return
+    if (optionId === questionSelectedOptions[currentQuestion]) return
     // currentScore = currentScore - previousAddition
     // currentScore = currentScore + newAddition
     const updatedScore = score - previousScoreAddtion + newScoreAddition
@@ -161,6 +173,12 @@ const Assessment = ({history}) => {
     setPreviousScoreAddition(newScoreAddition)
     setCurrentQuestionAttempt(isAttempted)
   }
+
+  const renderLoader = () => (
+    <div className="loader-container" data-testid="loader">
+      <Loader type="ThreeDots" color="#263868" height={50} width={50} />
+    </div>
+  )
 
   const renderMainView = () => (
     <div className="assessment-content-bg-container">
@@ -170,7 +188,7 @@ const Assessment = ({history}) => {
         currentQuestionIndex={currentQuestion}
         totalQuestions={apiResponse.totalQuestions}
         setScoreFunc={updateScore}
-        activeOptionIndex={activeOptionIndex}
+        activeOptionIndex={questionSelectedOptions[currentQuestion]}
         setActiveOptionIndex={setActiveOptionIndex}
       />
       <TimerProgress
@@ -179,7 +197,6 @@ const Assessment = ({history}) => {
         questionsProgressList={questionsProgressList}
         currentQuestionIndex={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
-        setActiveOptionIndex={setActiveOptionIndex}
       />
     </div>
   )
