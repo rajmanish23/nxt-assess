@@ -165,13 +165,13 @@ const Assessment = ({history}) => {
     setQuestionSelectedOptions(updatedOptionsStorage)
   }
 
+  // TODO: Fix the scoring function. It does not properly update scores when you change to a question via that selector/progress thing.
   const updateScore = (newScoreAddition, optionId, isAttempted) => {
     console.log(optionId, questionSelectedOptions[currentQuestion])
     if (optionId === questionSelectedOptions[currentQuestion]) return
     // currentScore = currentScore - previousAddition
     // currentScore = currentScore + newAddition
     const updatedScore = score - previousScoreAddtion + newScoreAddition
-    console.log('score added!')
     setActiveOptionIndex(optionId)
     setScore(updatedScore)
     setPreviousScoreAddition(newScoreAddition)

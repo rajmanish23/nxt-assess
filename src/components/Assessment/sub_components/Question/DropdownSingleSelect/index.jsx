@@ -7,6 +7,7 @@ const DropdownSingleSelect = props => {
   const initialOption = activeOptionIndex === -1 ? 0 : activeOptionIndex
   const [selectedOption, setSelectedOption] = useState(initialOption)
   const correctOptionId = optionsList.map(ele => ele.isCorrect).indexOf(true)
+  const optionIdIndexMap = optionsList.map(ele => ele.id)
 
   useEffect(() => {
     if (correctOptionId === selectedOption) {
@@ -19,7 +20,6 @@ const DropdownSingleSelect = props => {
 
   const checkAnswerAndAddScore = (isCorrect, optionId) => {
     if (isCorrect) {
-      console.log('check answer and add score called')
       setScoreFunction(1, optionId, true)
     } else {
       setScoreFunction(0, optionId, true)
@@ -27,25 +27,22 @@ const DropdownSingleSelect = props => {
   }
 
   const onChangeUpdateSelectedOption = e => {
-    const optionId = Number(e.target.value)
-    setSelectedOption(optionId)
-    checkAnswerAndAddScore(optionId === correctOptionId, optionId)
+    const optionId = e.target.value
+    const optionIndex = optionIdIndexMap.indexOf(optionId)
+    setSelectedOption(optionIndex)
+    checkAnswerAndAddScore(optionIndex === correctOptionId, optionIndex)
   }
 
   return (
     <select
       className="question-dropdown-container"
-      value={selectedOption}
+      value={optionIdIndexMap[selectedOption]}
       onChange={onChangeUpdateSelectedOption}
     >
-      {optionsList.map((eachOption, index) => {
+      {optionsList.map(eachOption => {
         const {id, text} = eachOption
         return (
-          <option
-            key={id}
-            value={index}
-            className="question-dropdown-option-item"
-          >
+          <option key={id} value={id} className="question-dropdown-option-item">
             {text}
           </option>
         )
