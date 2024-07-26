@@ -14,7 +14,6 @@ const Question = props => {
     totalQuestions,
     setScoreFunc,
     activeOptionIndex,
-    setActiveOptionIndex,
   } = props
   const {questionText, optionsType, options} = questionData
 
@@ -45,7 +44,6 @@ const Question = props => {
                 optionDetails={eachOption}
                 isSelected={activeOptionIndex === index}
                 optionIndex={index}
-                setActiveOptionId={setActiveOptionIndex}
                 setScoreFunc={setScoreFunc}
                 key={eachOption.id}
               />
@@ -61,7 +59,6 @@ const Question = props => {
                 optionDetails={eachOption}
                 isSelected={activeOptionIndex === index}
                 optionIndex={index}
-                setActiveOptionId={setActiveOptionIndex}
                 setScoreFunc={setScoreFunc}
                 key={eachOption.id}
               />
@@ -83,7 +80,6 @@ const Question = props => {
           <DropdownSingleSelect
             optionsList={options}
             setScoreFunction={setScoreFunc}
-            setActiveOptionIndex={setActiveOptionIndex}
             activeOptionIndex={activeOptionIndex}
           />
         )

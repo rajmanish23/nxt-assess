@@ -26,9 +26,9 @@ const Assessment = ({history}) => {
     errorMsg: null,
   })
   const [questionsProgressList, setQuestionsProgressList] = useState([])
-  const [questionSelectedOptions, setQuestionSelectedOptions] = useState([])
+  const [previousOptionsState, setPreviousOptionsState] = useState([])
+  const [correctOptionsState, setCorrectOptionsState] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [previousScoreAddtion, setPreviousScoreAddition] = useState(0)
   const [currentTime, setCurrentTime] = useState(600)
   const [score, setScore] = useState(0)
 
@@ -93,7 +93,6 @@ const Assessment = ({history}) => {
 
   const endAssessment = () => {
     setTimeRemaining(currentTime)
-    setContextScore(score)
     history.replace('/results')
   }
 
@@ -108,10 +107,15 @@ const Assessment = ({history}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // initialising question options storage thing
+  useEffect(() => {
+    setContextScore(score)
+  }, [score, setContextScore])
+
+  // initialising previous options and correct options array states
   useEffect(() => {
     for (let i = 0; i < apiResponse.totalQuestions; i++) {
-      setQuestionSelectedOptions(prev => [...prev, -1])
+      setPreviousOptionsState(prev => [...prev, -1])
+      setCorrectOptionsState(prev => [...prev, -1])
     }
   }, [apiResponse.totalQuestions])
 
@@ -140,7 +144,6 @@ const Assessment = ({history}) => {
       return
     }
     setCurrentQuestion(prev => prev + 1)
-    setPreviousScoreAddition(0)
   }
 
   const setCurrentQuestionAttempt = isAttempted => {
@@ -155,27 +158,60 @@ const Assessment = ({history}) => {
     setQuestionsProgressList(updatedProgressList)
   }
 
-  const setActiveOptionIndex = optionIndex => {
-    const updatedOptionsStorage = questionSelectedOptions.map((e, index) => {
+  const setPreviousOptionIndex = optionIndex => {
+    const updatedOptionsStorage = previousOptionsState.map((e, index) => {
       if (index === currentQuestion) {
         return optionIndex
       }
       return e
     })
-    setQuestionSelectedOptions(updatedOptionsStorage)
+    setPreviousOptionsState(updatedOptionsStorage)
+  }
+
+  const setCorrectOptionIndex = optionIndex => {
+    const updatedCorrectOptionsList = correctOptionsState.map((e, index) => {
+      if (index === currentQuestion) {
+        return optionIndex
+      }
+      return e
+    })
+    setCorrectOptionsState(updatedCorrectOptionsList)
   }
 
   // TODO: Fix the scoring function. It does not properly update scores when you change to a question via that selector/progress thing.
-  const updateScore = (newScoreAddition, optionId, isAttempted) => {
-    console.log(optionId, questionSelectedOptions[currentQuestion])
-    if (optionId === questionSelectedOptions[currentQuestion]) return
-    // currentScore = currentScore - previousAddition
-    // currentScore = currentScore + newAddition
-    const updatedScore = score - previousScoreAddtion + newScoreAddition
-    setActiveOptionIndex(optionId)
-    setScore(updatedScore)
-    setPreviousScoreAddition(newScoreAddition)
-    setCurrentQuestionAttempt(isAttempted)
+  const updateScore = (optionId, isCorrect) => {
+    if (optionId === previousOptionsState[currentQuestion]) return
+    setCurrentQuestionAttempt(true)
+    if (correctOptionsState[currentQuestion] === -1) {
+      if (isCorrect) {
+        const updatedScore = score + 1
+        setScore(updatedScore)
+        setCorrectOptionIndex(optionId)
+        setPreviousOptionIndex(optionId)
+      } else {
+        setPreviousOptionIndex(optionId)
+      }
+      return
+    }
+    // if previous option was correct
+    if (
+      previousOptionsState[currentQuestion] ===
+      correctOptionsState[currentQuestion]
+    ) {
+      const updatedScore = score - 1
+      setScore(updatedScore)
+      setPreviousOptionIndex(optionId)
+      return
+    }
+    // otherwise...
+    if (isCorrect) {
+      const updatedScore = score + 1
+      setScore(updatedScore)
+      setCorrectOptionIndex(optionId)
+      setPreviousOptionIndex(optionId)
+    } else {
+      setPreviousOptionIndex(optionId)
+    }
   }
 
   const renderLoader = () => (
@@ -192,8 +228,7 @@ const Assessment = ({history}) => {
         currentQuestionIndex={currentQuestion}
         totalQuestions={apiResponse.totalQuestions}
         setScoreFunc={updateScore}
-        activeOptionIndex={questionSelectedOptions[currentQuestion]}
-        setActiveOptionIndex={setActiveOptionIndex}
+        activeOptionIndex={previousOptionsState[currentQuestion]}
       />
       <TimerProgress
         endAssessment={endAssessment}

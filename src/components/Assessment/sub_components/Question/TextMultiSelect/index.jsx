@@ -7,16 +7,8 @@ const TextMultiSelect = props => {
 
   const selectedClass = isSelected ? 'active-option-highlight' : ''
 
-  const checkCorrectAndSetScore = () => {
-    if (isCorrect) {
-      setScoreFunc(1, optionIndex, true)
-    } else {
-      setScoreFunc(0, optionIndex, true)
-    }
-  }
-
   const onClickSetAsActive = () => {
-    checkCorrectAndSetScore()
+    setScoreFunc(optionIndex, isCorrect)
   }
 
   return (

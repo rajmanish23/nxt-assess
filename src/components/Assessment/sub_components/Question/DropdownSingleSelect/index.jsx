@@ -11,26 +11,19 @@ const DropdownSingleSelect = props => {
 
   useEffect(() => {
     if (correctOptionId === selectedOption) {
-      setScoreFunction(1, selectedOption, true)
+      setScoreFunction(selectedOption, true)
     } else {
-      setScoreFunction(0, selectedOption, true)
+      setScoreFunction(selectedOption, false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const checkAnswerAndAddScore = (isCorrect, optionId) => {
-    if (isCorrect) {
-      setScoreFunction(1, optionId, true)
-    } else {
-      setScoreFunction(0, optionId, true)
-    }
-  }
-
   const onChangeUpdateSelectedOption = e => {
     const optionId = e.target.value
     const optionIndex = optionIdIndexMap.indexOf(optionId)
+    const isCorrect = optionIndex === correctOptionId
     setSelectedOption(optionIndex)
-    checkAnswerAndAddScore(optionIndex === correctOptionId, optionIndex)
+    setScoreFunction(optionIndex, isCorrect)
   }
 
   return (
