@@ -29,10 +29,10 @@ const Assessment = ({history}) => {
   const [questionSelectedOptions, setQuestionSelectedOptions] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [previousScoreAddtion, setPreviousScoreAddition] = useState(0)
-  // const [activeOptionIndex, setActiveOptionIndex] = useState(-1)
   const [currentTime, setCurrentTime] = useState(600)
+  const [score, setScore] = useState(0)
 
-  const {score, setScore, setTimeRemaining} = useContext(ScoreContext)
+  const {setContextScore, setTimeRemaining} = useContext(ScoreContext)
 
   const timerId = useRef(null)
 
@@ -93,6 +93,7 @@ const Assessment = ({history}) => {
 
   const endAssessment = () => {
     setTimeRemaining(currentTime)
+    setContextScore(score)
     history.replace('/results')
   }
 
@@ -165,10 +166,13 @@ const Assessment = ({history}) => {
   }
 
   const updateScore = (newScoreAddition, optionId, isAttempted) => {
+    console.log(optionId, questionSelectedOptions[currentQuestion])
     if (optionId === questionSelectedOptions[currentQuestion]) return
     // currentScore = currentScore - previousAddition
     // currentScore = currentScore + newAddition
     const updatedScore = score - previousScoreAddtion + newScoreAddition
+    console.log('score added!')
+    setActiveOptionIndex(optionId)
     setScore(updatedScore)
     setPreviousScoreAddition(newScoreAddition)
     setCurrentQuestionAttempt(isAttempted)

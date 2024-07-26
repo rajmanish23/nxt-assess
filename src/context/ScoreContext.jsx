@@ -2,7 +2,7 @@ import React from 'react'
 
 const ScoreContext = React.createContext({
   score: 0,
-  setScore: () => {},
+  setContextScore: () => {},
   timeRemaining: 0,
   setTimeRemaining: () => {},
 })

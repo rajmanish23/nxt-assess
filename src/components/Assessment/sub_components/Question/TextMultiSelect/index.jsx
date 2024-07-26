@@ -1,13 +1,7 @@
 import './index.css'
 
 const TextMultiSelect = props => {
-  const {
-    optionDetails,
-    setScoreFunc,
-    isSelected,
-    optionIndex,
-    setActiveOptionId,
-  } = props
+  const {optionDetails, setScoreFunc, isSelected, optionIndex} = props
 
   const {text, isCorrect} = optionDetails
 
@@ -23,7 +17,6 @@ const TextMultiSelect = props => {
 
   const onClickSetAsActive = () => {
     checkCorrectAndSetScore()
-    setActiveOptionId(optionIndex)
   }
 
   return (

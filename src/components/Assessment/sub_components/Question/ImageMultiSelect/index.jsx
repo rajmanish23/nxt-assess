@@ -1,13 +1,7 @@
 import './index.css'
 
 const ImageMultiSelect = props => {
-  const {
-    optionDetails,
-    setScoreFunc,
-    isSelected,
-    optionIndex,
-    setActiveOptionId,
-  } = props
+  const {optionDetails, setScoreFunc, isSelected, optionIndex} = props
 
   const {text, imageUrl, isCorrect} = optionDetails
 
@@ -23,7 +17,6 @@ const ImageMultiSelect = props => {
 
   const onClickSetAsActive = () => {
     checkCorrectAndSetScore()
-    setActiveOptionId(optionIndex)
   }
 
   return (
